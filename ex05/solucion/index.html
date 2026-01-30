@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="gl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xogo de Busca de Caracteres con Tempo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .instruccion {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .target-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .target-label {
+            color: white;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .target-char {
+            font-size: 3.5em;
+            font-weight: bold;
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            width: 90px;
+            height: 90px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            border: 3px solid white;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .info-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .info-box {
+            background: #f5f5f5;
+            padding: 15px 20px;
+            border-radius: 10px;
+            text-align: center;
+            flex: 1;
+            min-width: 130px;
+        }
+
+        .info-box label {
+            display: block;
+            color: #666;
+            font-size: 0.85em;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .info-box .value {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .found .value {
+            color: #27ae60;
+        }
+
+        .total .value {
+            color: #667eea;
+        }
+
+        .errors .value {
+            color: #e74c3c;
+        }
+
+        .timer .value {
+            color: #f39c12;
+        }
+
+        .timer.warning .value {
+            color: #e74c3c;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .matrix-container {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+        }
+
+        .char-cell {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6em;
+            font-weight: bold;
+            border: 3px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            color: #333;
+            user-select: none;
+            text-transform: uppercase;
+        }
+
+        .char-cell:hover {
+            border-color: #667eea;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .char-cell.found {
+            background: #27ae60;
+            color: white;
+            border-color: #229954;
+        }
+
+        .char-cell.error {
+            background: #e74c3c;
+            color: white;
+            border-color: #c0392b;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 1em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .btn-new {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-new:hover {
+            background: #229954;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+        }
+
+        .btn-start {
+            background: #f39c12;
+            color: white;
+        }
+
+        .btn-start:hover {
+            background: #e67e22;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.4);
+        }
+
+        .btn-reset {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-stats {
+            background: #34495e;
+            color: white;
+        }
+
+        .btn-stats:hover {
+            background: #2c3e50;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(44, 62, 80, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .stats-panel {
+            background: #f5f5f5;
+            padding: 18px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .stats-panel.visible {
+            display: block;
+        }
+
+        .stats-panel h2 {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .stats-list {
+            list-style: none;
+            display: grid;
+            gap: 8px;
+        }
+
+        .stats-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 10px 12px;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+            font-size: 0.95em;
+        }
+
+        .completion-message {
+            text-align: center;
+            padding: 18px;
+            margin-top: 15px;
+            border-radius: 10px;
+            display: none;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .completion-message.success {
+            background: #27ae60;
+            color: white;
+            display: block;
+        }
+
+        .completion-message.timeout {
+            background: #e74c3c;
+            color: white;
+            display: block;
+        }
+
+        .game-disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .matrix-container {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 10px;
+            }
+
+            .char-cell {
+                font-size: 1.3em;
+            }
+
+            .target-char {
+                width: 80px;
+                height: 80px;
+                font-size: 3em;
+            }
+
+            .info-container {
+                flex-direction: column;
+            }
+
+            .info-box {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⏱️ Xogo de Busca con Tempo</h1>
+        <p class="instruccion">Atopa todas as coincidencias en 30 segundos!</p>
+
+        <div class="target-container">
+            <div class="target-label">Carácter a buscar:</div>
+            <div class="target-char" id="targetChar">A</div>
+        </div>
+
+        <div class="info-container">
+            <div class="info-box found">
+                <label>Atopados:</label>
+                <div class="value" id="foundCount">0</div>
+            </div>
+            <div class="info-box total">
+                <label>Total:</label>
+                <div class="value" id="totalCount">0</div>
+            </div>
+            <div class="info-box errors">
+                <label>Erros:</label>
+                <div class="value" id="errorCount">0</div>
+            </div>
+            <div class="info-box timer" id="timerBox">
+                <label>Tempo:</label>
+                <div class="value" id="timer">30</div>
+            </div>
+        </div>
+
+        <div class="matrix-container" id="matrixContainer"></div>
+
+        <div class="controls">
+            <button class="btn-start" id="btnStart" onclick="startGame()">Iniciar Xogo</button>
+            <button class="btn-new" onclick="newGame()">Novo Xogo</button>
+            <button class="btn-reset" onclick="resetMatrix()">Reiniciar Actual</button>
+            <button class="btn-stats" id="btnStats" onclick="toggleStats()">Ver estatísticas</button>
+        </div>
+
+        <div class="completion-message" id="completionMessage"></div>
+
+        <section class="stats-panel" id="statsPanel">
+            <h2>Estatísticas da sesión</h2>
+            <ul class="stats-list" id="statsList"></ul>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

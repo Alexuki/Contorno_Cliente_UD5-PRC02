@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>enunciado.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="exercicio-3-xogo-de-busca-de-caracteres">Exercicio 3: Xogo de Busca de Caracteres</h1>
+<h2 id="obxectivo">Obxectivo</h2>
+<p>Crear unha aplicación web interactiva que mostre unha matriz de 36 caracteres do alfabeto e permita ao usuario detectar e marcar todas as coincidencias dun carácter específico indicado.</p>
+<h2 id="descrici%C3%B3n">Descrición</h2>
+<p>O xogo presenta unha matriz de 6x6 (36 celas) con letras do alfabeto. Unha letra é seleccionada aleatoriamente como <strong>carácter obxectivo</strong>, e o usuario debe identificar e clickar en todas as celas que conteñan ese carácter.</p>
+<h3 id="caracter%C3%ADsticas-principais">Características Principais</h3>
+<ul>
+<li>Matriz de <strong>36 caracteres</strong> aleatorios do alfabeto</li>
+<li>Un <strong>carácter obxectivo</strong> aparece entre <strong>3 e 6 veces</strong> na matriz</li>
+<li>O usuario debe <strong>detectar todas as coincidencias</strong></li>
+<li>Sistema de <strong>validación en tempo real</strong></li>
+<li>Contador de <strong>aciertos</strong> e <strong>erros</strong></li>
+<li>Mensaxe de <strong>felicitación</strong> ao completar</li>
+</ul>
+<h2 id="requisitos-de-implementaci%C3%B3n">Requisitos de Implementación</h2>
+<h3 id="a-estado-do-xogo-gamestate">A. Estado do Xogo (gameState)</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> gameState = {
+    <span class="hljs-attr">matriz</span>: [],              <span class="hljs-comment">// Array de 36 caracteres</span>
+    <span class="hljs-attr">targetChar</span>: <span class="hljs-string">''</span>,          <span class="hljs-comment">// Carácter obxectivo a buscar</span>
+    <span class="hljs-attr">targetPositions</span>: [],     <span class="hljs-comment">// Índices onde está o carácter obxectivo</span>
+    <span class="hljs-attr">foundPositions</span>: [],      <span class="hljs-comment">// Índices xa atopados polo usuario</span>
+    <span class="hljs-attr">errors</span>: <span class="hljs-number">0</span>,               <span class="hljs-comment">// Contador de erros</span>
+    <span class="hljs-attr">isGameComplete</span>: <span class="hljs-literal">false</span>    <span class="hljs-comment">// Indica se o xogo está completo</span>
+};
+</div></code></pre>
+<h3 id="b-constante-do-alfabeto">B. Constante do Alfabeto</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> ALPHABET = <span class="hljs-string">'ABCDEFGHIJKLMNOPQRSTUVWXYZ'</span>;
+</div></code></pre>
+<h3 id="c-funci%C3%B3ns-a-implementar">C. Funcións a Implementar</h3>
+<h4 id="1-generatematrix">1. <code>generateMatrix()</code></h4>
+<p><strong>Obxectivo</strong>: Crear unha matriz aleatoria de 36 caracteres</p>
+<p><strong>Lógica</strong>:</p>
+<ol>
+<li>Escoller un carácter obxectivo aleatorio do alfabeto</li>
+<li>Decidir cantas veces aparecerá (entre 3 e 6)<pre class="hljs"><code><div><span class="hljs-keyword">const</span> targetCount = <span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">4</span>) + <span class="hljs-number">3</span>; <span class="hljs-comment">// 3-6</span>
+</div></code></pre>
+</li>
+<li>Engadir o carácter obxectivo esas veces á matriz</li>
+<li>Encher o resto (36 - targetCount) con caracteres aleatorios <strong>diferentes</strong> do obxectivo</li>
+<li>Baraxar a matriz completa con algoritmo <strong>Fisher-Yates</strong></li>
+</ol>
+<p><strong>Retorna</strong>:</p>
+<pre class="hljs"><code><div>{
+    <span class="hljs-attr">matriz</span>: [<span class="hljs-string">'A'</span>, <span class="hljs-string">'B'</span>, <span class="hljs-string">'A'</span>, <span class="hljs-string">'C'</span>, ...],  <span class="hljs-comment">// 36 caracteres</span>
+    <span class="hljs-attr">targetChar</span>: <span class="hljs-string">'A'</span>                      <span class="hljs-comment">// Carácter obxectivo</span>
+}
+</div></code></pre>
+<h4 id="2-findtargetpositions">2. <code>findTargetPositions()</code></h4>
+<p><strong>Obxectivo</strong>: Identificar as posicións (índices) onde está o carácter obxectivo</p>
+<p><strong>Lógica</strong>:</p>
+<ul>
+<li>Percorrer <code>gameState.matriz</code></li>
+<li>Gardar os índices onde <code>matriz[i] === targetChar</code></li>
+</ul>
+<p><strong>Retorna</strong>: Array de índices, p.ex. <code>[0, 5, 12, 23, 30]</code></p>
+<h4 id="3-rendermatrix">3. <code>renderMatrix()</code></h4>
+<p><strong>Obxectivo</strong>: Renderizar a matriz na interface</p>
+<p><strong>Lóxica</strong>:</p>
+<ol>
+<li>Obter o container <code>#matrixContainer</code></li>
+<li>Limpar o contido (<code>innerHTML = ''</code>)</li>
+<li>Para cada carácter na matriz:
+<ul>
+<li>Crear un <code>&lt;div&gt;</code> con clase <code>.char-cell</code></li>
+<li>Establecer o texto co carácter</li>
+<li>Gardar o índice en <code>dataset.index</code></li>
+<li>Asociar evento de click</li>
+<li>Engadir ao container</li>
+</ul>
+</li>
+</ol>
+<h4 id="4-handlecellclickindex-elemento">4. <code>handleCellClick(index, elemento)</code></h4>
+<p><strong>Obxectivo</strong>: Xestionar o click nunha cela</p>
+<p><strong>Validacións</strong>:</p>
+<ul>
+<li>Se <code>isGameComplete</code> → non facer nada</li>
+<li>Se o índice xa está en <code>foundPositions</code> → non facer nada</li>
+</ul>
+<p><strong>Lógica</strong>:</p>
+<ul>
+<li>
+<p><strong>Se o índice está en <code>targetPositions</code></strong> (acierto):</p>
+<ol>
+<li>Engadir clase <code>.found</code> (fondo verde)</li>
+<li>Desactivar a cela (<code>pointerEvents = 'none'</code>)</li>
+<li>Engadir índice a <code>foundPositions</code></li>
+<li>Actualizar contador de atopados</li>
+<li>Se <code>foundPositions.length === targetPositions.length</code> → <code>completeGame()</code></li>
+</ol>
+</li>
+<li>
+<p><strong>Se NON está en <code>targetPositions</code></strong> (erro):</p>
+<ol>
+<li>Engadir clase <code>.error</code> (fondo vermello)</li>
+<li>Incrementar <code>errors</code></li>
+<li>Actualizar contador de erros</li>
+<li>Remover clase <code>.error</code> tras 500ms</li>
+</ol>
+</li>
+</ul>
+<h4 id="5-completegame">5. <code>completeGame()</code></h4>
+<p><strong>Obxectivo</strong>: Finalizar o xogo e mostrar resultados</p>
+<p><strong>Lógica</strong>:</p>
+<ol>
+<li>Marcar <code>isGameComplete = true</code></li>
+<li>Deshabilitar a matriz (clase <code>.game-disabled</code>)</li>
+<li>Mostrar mensaxe:
+<ul>
+<li>Se <code>errors === 0</code>: &quot;🎉 ¡Perfecto! Atopaches todas as X coincidencias sen erros!&quot;</li>
+<li>Se <code>errors &gt; 0</code>: &quot;✅ ¡Moi ben! Atopaches todas as X coincidencias con Y erro(s)!&quot;</li>
+</ul>
+</li>
+<li>Engadir clase <code>.success</code> á mensaxe</li>
+</ol>
+<h4 id="6-newgame">6. <code>newGame()</code></h4>
+<p><strong>Obxectivo</strong>: Iniciar un novo xogo con nova matriz e novo carácter</p>
+<p><strong>Lógica</strong>:</p>
+<ol>
+<li>Chamar <code>generateMatrix()</code> para obter nova matriz e carácter</li>
+<li>Resetear <code>gameState</code> con novos valores</li>
+<li>Chamar <code>findTargetPositions()</code> para identificar posicións</li>
+<li>Actualizar UI:
+<ul>
+<li>Carácter obxectivo (<code>#targetChar</code>)</li>
+<li>Contador de atopados a 0</li>
+<li>Contador total (<code>#totalCount</code>)</li>
+<li>Contador de erros a 0</li>
+<li>Limpar mensaxes</li>
+</ul>
+</li>
+<li>Chamar <code>renderMatrix()</code></li>
+</ol>
+<h4 id="7-resetmatrix">7. <code>resetMatrix()</code></h4>
+<p><strong>Obxectivo</strong>: Reiniciar o xogo actual (mantén a mesma matriz)</p>
+<p><strong>Lógica</strong>:</p>
+<ol>
+<li>Limpar <code>foundPositions</code> e <code>errors</code></li>
+<li>Marcar <code>isGameComplete = false</code></li>
+<li>Actualizar contadores na UI</li>
+<li>Limpar mensaxes</li>
+<li>Re-renderizar a matriz</li>
+</ol>
+<h3 id="d-interface-html">D. Interface HTML</h3>
+<p>Elementos importantes:</p>
+<ul>
+<li><code>#targetChar</code> - Mostra o carácter obxectivo</li>
+<li><code>#foundCount</code> - Contador de coincidencias atopadas</li>
+<li><code>#totalCount</code> - Total de coincidencias a atopar</li>
+<li><code>#errorCount</code> - Contador de erros</li>
+<li><code>#matrixContainer</code> - Container da matriz 6x6</li>
+<li><code>#completionMessage</code> - Mensaxe de finalización</li>
+</ul>
+<h2 id="fluxo-de-execuci%C3%B3n">Fluxo de Execución</h2>
+<pre class="hljs"><code><div>1. Ao cargar a páxina → newGame()
+   ↓
+2. Xérase matriz aleatoria con carácter obxectivo
+   ↓
+3. Móstrase carácter obxectivo e matriz barallada
+   ↓
+4. Usuario clicka nas celas
+   ↓
+5. handleCellClick() valida cada click
+   ↓
+6a. Acierto → marca en verde, incrementa contador
+   OU
+6b. Erro → anima en vermello, incrementa erros
+   ↓
+7. Cando atopa todas → completeGame()
+   ↓
+8. Usuario pode:
+   - &quot;Novo Xogo&quot; → nova matriz e carácter
+   - &quot;Reiniciar Actual&quot; → mesma matriz, resetear estado
+</div></code></pre>
+<h2 id="funcionalidades-visuais">Funcionalidades Visuais</h2>
+<h3 id="cores-e-estados">Cores e Estados</h3>
+<ul>
+<li><strong>Cela normal</strong>: Fondo branco, borde gris</li>
+<li><strong>Cela atopada</strong>: Fondo verde (#27ae60), desactivada</li>
+<li><strong>Cela erro</strong>: Fondo vermello temporal con animación shake</li>
+</ul>
+<h3 id="animaci%C3%B3ns-css">Animacións CSS</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">@keyframes</span> foundPulse {
+    0%, 100% { <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">scale</span>(<span class="hljs-number">1</span>); }
+    50% { <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">scale</span>(<span class="hljs-number">1.1</span>); }
+}
+
+<span class="hljs-keyword">@keyframes</span> shake {
+    0%, 100% { <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateX</span>(<span class="hljs-number">0</span>); }
+    25% { <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateX</span>(-<span class="hljs-number">10px</span>); }
+    75% { <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateX</span>(<span class="hljs-number">10px</span>); }
+}
+</div></code></pre>
+<h3 id="car%C3%A1cter-obxectivo-destacado">Carácter Obxectivo Destacado</h3>
+<ul>
+<li>Mostrarse nun cadro grande con gradiente</li>
+<li>Fonte moi grande (4em)</li>
+<li>Borde branco e sombra</li>
+</ul>
+<h2 id="consideraci%C3%B3ns-t%C3%A9cnicas">Consideracións Técnicas</h2>
+<h3 id="xeraci%C3%B3n-da-matriz">Xeración da Matriz</h3>
+<ol>
+<li><strong>Garantir presenza do obxectivo</strong>: O carácter obxectivo debe aparecer polo menos 3 veces</li>
+<li><strong>Evitar repetición</strong>: Os caracteres de recheo NON deben ser o carácter obxectivo</li>
+<li><strong>Barallado correcto</strong>: Usar Fisher-Yates para distribución uniforme</li>
+</ol>
+<h3 id="validaci%C3%B3n-de-clicks">Validación de Clicks</h3>
+<ol>
+<li><strong>Evitar reclicks</strong>: Non permitir clickar dúas veces a mesma cela atopada</li>
+<li><strong>Bloqueo final</strong>: Deshabilitar toda a matriz ao completar</li>
+<li><strong>Feedback inmediato</strong>: Animación instantánea en cada click</li>
+</ol>
+<h2 id="exemplos-de-uso">Exemplos de Uso</h2>
+<h3 id="exemplo-1-car%C3%A1cter-a-aparece-4-veces">Exemplo 1: Carácter 'A' aparece 4 veces</h3>
+<pre class="hljs"><code><div>Matriz: A B C D E F
+        G H A I J K
+        L M N O P Q
+        R A S T U V
+        W X A Y Z A
+        B C D E F G
+
+Obxectivo: Atopar as 4 'A'
+</div></code></pre>
+<h2 id="r%C3%BAbrica-de-avaliaci%C3%B3n">Rúbrica de Avaliación</h2>
+<table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Puntuación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>generateMatrix()</code> xera matriz correcta</td>
+<td>5 pts</td>
+</tr>
+<tr>
+<td><code>findTargetPositions()</code> identifica posicións</td>
+<td>10 pts</td>
+</tr>
+<tr>
+<td><code>renderMatrix()</code> mostra matriz interactiva</td>
+<td>5 pts</td>
+</tr>
+<tr>
+<td><code>handleCellClick()</code> valida correctamente</td>
+<td>25 pts</td>
+</tr>
+<tr>
+<td><code>completeGame()</code> mostra resultados</td>
+<td>10 pts</td>
+</tr>
+<tr>
+<td><code>newGame()</code> reinicia correctamente</td>
+<td>10 pts</td>
+</tr>
+<tr>
+<td><code>resetMatrix()</code> limpa sen cambiar matriz</td>
+<td>10 pts</td>
+</tr>
+<tr>
+<td>Funcionamento global da APP</td>
+<td>25 pts</td>
+</tr>
+<tr>
+<td><strong>TOTAL</strong></td>
+<td><strong>100 pts</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="notas-importantes">Notas Importantes</h2>
+<ul>
+<li>⚠️ O carácter obxectivo debe aparecer <strong>entre 3 e 6 veces</strong></li>
+<li>⚠️ Os caracteres de recheo NON deben ser o carácter obxectivo</li>
+<li>⚠️ A matriz debe estar <strong>completamente barallada</strong> (Fisher-Yates)</li>
+<li>⚠️ As animacións de erro deben ser <strong>temporais</strong> (500ms)</li>
+<li>⚠️ Ao completar, toda a matriz debe <strong>deshabilitarse</strong></li>
+<li>⚠️ &quot;Novo Xogo&quot; cambia matriz e carácter; &quot;Reiniciar&quot; mantén a mesma</li>
+</ul>
+<h2 id="consellos-de-implementaci%C3%B3n">Consellos de Implementación</h2>
+<ol>
+<li><strong>Comezar pola xeración</strong>: Implementar e probar <code>generateMatrix()</code> primeiro</li>
+<li><strong>Verificar posicións</strong>: Usar <code>console.log()</code> para validar <code>targetPositions</code></li>
+<li><strong>Probar validación</strong>: Asegurarse de que só as posicións correctas se marcan</li>
+<li><strong>Animacións suaves</strong>: Usar <code>setTimeout()</code> para efectos temporais</li>
+<li><strong>Responsive</strong>: Probar en diferentes tamaños de pantalla</li>
+</ol>
+<h2 id="ficheiros-dispo%C3%B1ibles">Ficheiros Dispoñibles</h2>
+<ul>
+<li><code>index.html</code> - Interface con matriz 6x6 e controis</li>
+<li><code>app.js</code> - Lógica do xogo (a completar)</li>
+</ul>
+
+</body>
+</html>

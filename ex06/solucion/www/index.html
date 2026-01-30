@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="gl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xogos de Matriz - Índice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .game-card {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .game-card h2 {
+            color: #667eea;
+            margin-bottom: 12px;
+            font-size: 1.6em;
+        }
+
+        .game-card p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .features {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .features li {
+            padding: 6px 0;
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .features li:before {
+            content: "✓ ";
+            color: #27ae60;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .btn-play {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-play:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .info-section {
+            background: #f9f9f9;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+        .info-section h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .info-section p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 Xogos de Matriz</h1>
+        <p class="subtitle">Escolle un xogo e pon a proba a túa concentración!</p>
+
+        <div class="games-grid">
+            <a href="ex02/index.html" class="game-card">
+                <h2>⏱️ Exercicio 2: Matriz Configurábel</h2>
+                <p>Xogo avanzado con configuración de tamaño de matriz e cronómetro configurable.</p>
+                <ul class="features">
+                    <li>Tamaños de matriz: 2x2 até 10x10</li>
+                    <li>Tempo configurable: 30-180 segundos</li>
+                    <li>Conta atrás con alertas visuais</li>
+                    <li>Rexistro de tempo transcorrido</li>
+                </ul>
+                <span class="btn-play">▶️ Xogar Agora</span>
+            </a>
+
+            <a href="ex05/index.html" class="game-card">
+                <h2>💾 Exercicio 5: Con Estatísticas</h2>
+                <p>Busca caracteres con gardado de estatísticas en sessionStorage.</p>
+                <ul class="features">
+                    <li>Matriz 6x6 con busca de caracteres</li>
+                    <li>Cronómetro de 30 segundos</li>
+                    <li>Gardado de estatísticas</li>
+                    <li>Panel de histórico da sesión</li>
+                </ul>
+                <span class="btn-play">▶️ Xogar Agora</span>
+            </a>
+        </div>
+
+        <div class="info-section">
+            <h3>📦 Información do Docker</h3>
+            <p>Estes xogos están servidos desde un contedor Docker con PHP e Apache. Podes acceder a calquera dos xogos desde este índice ou directamente navegando ás súas rutas.</p>
+        </div>
+    </div>
+</body>
+</html>
