@@ -1,0 +1,29 @@
+# Dependencias
+node_modules/
+
+# Salidas de build / test
+coverage/
+dist/
+build/
+.next/
+out/
+.cache/
+.parcel-cache/
+
+# Temporales y logs
+tmp/
+temp/
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# Variables de entorno
+.env
+.env.*
+!.env.example
+
+# IDE y sistema operativo
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
